@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h2>Lista de Reclamações</h2>
+<ul>
+    {% for r in reclamacoes %}
+    <li>
+        <strong>{{ r.titulo }}</strong> — {{ r.reclamante.nome }} ({{ r.reclamante.email }})<br>
+        {{ r.descricao }}
+    </li>
+    {% endfor %}
+</ul>
+<a href="{{ url_for('cadastrar') }}">Cadastrar nova reclamação</a>
+{% endblock %}

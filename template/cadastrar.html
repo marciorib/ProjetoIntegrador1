@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<form method="post">
+    <label>Nome:</label><br>
+    <input type="text" name="nome"><br><br>
+
+    <label>Email:</label><br>
+    <input type="email" name="email"><br><br>
+
+    <label>Título da Reclamação:</label><br>
+    <input type="text" name="titulo"><br><br>
+
+    <label>Descrição:</label><br>
+    <textarea name="descricao"></textarea><br><br>
+
+    <button type="submit">Gravar</button>
+</form>
+{% endblock %}
