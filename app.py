@@ -1,9 +1,16 @@
+
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # Carrega as variáveis do .env
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/reclamacoes.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+
+# ✅ Criar a instância do banco de dados
 db = SQLAlchemy(app)
 
 # Modelos
@@ -19,6 +26,7 @@ class Reclamacao(db.Model):
     descricao = db.Column(db.Text, nullable=False)
     reclamante_id = db.Column(db.Integer, db.ForeignKey('reclamante.id'), nullable=False)
 
+# Rotas
 @app.route('/')
 def index():
     return redirect(url_for('listar_reclamacoes'))
@@ -31,6 +39,7 @@ def cadastrar():
         titulo = request.form['titulo']
         descricao = request.form['descricao']
 
+        # Verifica se já existe o reclamante
         reclamante = Reclamante.query.filter_by(email=email).first()
         if not reclamante:
             reclamante = Reclamante(nome=nome, email=email)
