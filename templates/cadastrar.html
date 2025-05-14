@@ -11,33 +11,41 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="my-4">Cadastro de Reclamação</h1>
-        <form method="POST">
+        <h1 class="my-4">Cadastrar Reclamação</h1>
+        <form method="post">
             <div class="mb-3">
-                <label for="nome" class="form-label">Nome:</label>
-                <input type="text" name="nome" class="form-control" required>
+                <label for="titulo" class="form-label">Título</label>
+                <input type="text" class="form-control" name="titulo" required>
             </div>
 
             <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
-                <input type="email" name="email" class="form-control" required>
+                <label for="descricao" class="form-label">Descrição</label>
+                <textarea class="form-control" name="descricao" rows="3" required></textarea>
             </div>
 
             <div class="mb-3">
-                <label for="titulo" class="form-label">Título:</label>
-                <input type="text" name="titulo" class="form-control" required>
+                <label for="nome" class="form-label">Nome do Reclamante</label>
+                <input type="text" class="form-control" name="nome" required>
             </div>
 
             <div class="mb-3">
-                <label for="descricao" class="form-label">Descrição:</label>
-                <textarea name="descricao" class="form-control" rows="5" required></textarea>
+                <label for="email" class="form-label">Email do Reclamante</label>
+                <input type="email" class="form-control" name="email" required>
             </div>
 
-            <button type="submit" class="btn btn-primary">Gravar</button>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" name="resolvido" id="resolvido">
+                <label class="form-check-label" for="resolvido">
+                    Marcar como resolvido
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
 
         <!-- Botão para listar as reclamações -->
-        <a href="{{ url_for('listar_reclamacoes') }}" class="btn btn-secondary my-4">Ver Reclamações</a>
+        <a href="{{ url_for('listar') }}" class="btn btn-secondary my-4">Ver Reclamações</a>
+
     </div>
 
     <!-- Adicionando o JavaScript do Bootstrap via CDN -->

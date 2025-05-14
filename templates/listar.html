@@ -5,28 +5,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Reclamações</title>
-
-    <!-- Adicionando o Bootstrap via CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1 class="my-4">Lista de Reclamações</h1>
-        <ul class="list-group">
-            {% for r in reclamacoes %}
-                <li class="list-group-item">
-                    <h5>{{ r.titulo }}</h5>
-                    <p>{{ r.descricao }}</p>
-                    <p><strong>Reclamante:</strong> {{ r.reclamante.nome }} | <strong>Email:</strong> {{ r.reclamante.email }}</p>
-                </li>
-            {% endfor %}
-        </ul>
+        <div class="row">
+            <!-- Estatísticas -->
+            <div class="col-md-3">
+                <h4>Estatísticas</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <strong>Total:</strong> {{ total_reclamacoes }}
+                    </li>
+                    <li class="list-group-item bg-warning text-dark">
+                        <strong>Pendentes:</strong> {{ pendentes }}
+                    </li>
+                    <li class="list-group-item bg-success text-white">
+                        <strong>Resolvidas:</strong> {{ resolvidas }}
+                    </li>
+                </ul>
+            </div>
 
-        <a href="{{ url_for('cadastrar') }}" class="btn btn-success my-4">Cadastrar nova reclamação</a>
+            <!-- Lista de Reclamações -->
+            <div class="col-md-9">
+                <h1 class="my-4">Lista de Reclamações</h1>
+                <ul class="list-group">
+                    {% for reclamacao in reclamacoes %}
+                        <li class="list-group-item">
+                            <strong>{{ reclamacao.titulo }}</strong><br>
+                            {{ reclamacao.descricao }}<br>
+                            Status: {{ 'Resolvido' if reclamacao.resolvido else 'Pendente' }}
+                            <form action="{{ url_for('atualizar_status', id=reclamacao.id) }}" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-sm btn-outline-primary">
+                                    Alterar Status
+                                </button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <a href="{{ url_for('cadastrar') }}" class="btn btn-success my-4">Cadastrar nova reclamação</a>
+            </div>
+        </div>
     </div>
 
-    <!-- Adicionando o JavaScript do Bootstrap via CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1
